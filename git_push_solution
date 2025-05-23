@@ -1,0 +1,6 @@
+1. git init
+2. git add .
+3. git commit -m "first time"
+4. git branch -M main
+5. git remote add origin https://github.com/Piinfany/JWT-project
+6. git push -u origin main or git push -u origin main --force (ถ้าทำงานร่วมกับคนอื่นต้องระวัง)

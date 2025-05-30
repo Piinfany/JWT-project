@@ -102,6 +102,10 @@ app.post('/welcome', auth, (req, res) => {
     res.status(200).send('Welcome 🙌 ' + JSON.stringify(req.user));
 });
 
+app.get('/dashboard', auth, (req, res) => {
+  res.status(200).send('Welcome 🙌 ' + JSON.stringify(req.user));
+});
+
 app.get('/', (req, res) => { // Root route
     res.send('Hello World!'); // Return hello world message
 });

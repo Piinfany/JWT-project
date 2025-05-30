@@ -1,3 +1,22 @@
+// เป็นการตั้งค่าการเชื่อมต่อ database
+
+//✅ dotenv
+//dotenv คือไลบรารีที่ช่วยให้สามารถจัดเก็บข้อมูลลับหรือค่าตั้งค่าต่างๆ ไว้ในไฟล์ .env ได้ เช่น:
+
+//รหัสผ่านฐานข้อมูล
+
+//คีย์ลับ API
+
+//ชื่อฐานข้อมูล
+
+//พอร์ต
+
+//✅ require('dotenv')
+//เรียกใช้งานไลบรารี dotenv
+
+//✅ .config()
+//คือเมธอดของ dotenv ที่จะโหลดค่าจากไฟล์ .env แล้วเพิ่มเข้าไปใน process.env
+
 require('dotenv').config();
 const mongoose = require('mongoose'); // Import mongoose for MongoDB connection
 
@@ -10,8 +29,7 @@ exports.connect = () => { // Function to connect to MongoDB
         useUnifiedTopology: true, // ใช้ topology ใหม่
         // useCreateIndex: true, // ใช้ index ใหม่
         // useFindAndModify: false, // ใช้ findAndModify
-    })
-    .then(() => { // If connection is successful
+    }).then(() => { // If connection is successful
         console.log('MongoDB connected successfully');
     })
     .catch((error) => { // If connection fails

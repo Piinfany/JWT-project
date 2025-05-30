@@ -19,11 +19,13 @@
 
 // module.exports = verifyToken; // Export the middleware function
 
-const jwt = require('jsonwebtoken'); // Import jsonwebtoken
+// ตรวจสอบ JWT Token (JSON Web Token) ใน Node.js API เพื่อป้องกันไม่ให้ผู้ที่ไม่มีสิทธิ์เข้าถึงเส้นทาง (route) ที่ต้องการการยืนยันตัวตน
 
-const TOKEN_KEY = process.env.TOKEN_KEY;
+const jwt = require('jsonwebtoken'); // Import jsonwebtoken ใช้สำหรับ สร้าง และ ตรวจสอบ JWT Token
+
+const TOKEN_KEY = process.env.TOKEN_KEY; // โหลดค่า TOKEN_KEY จากไฟล์ .env มาใช้เป็นคีย์ลับในการตรวจสอบ Token
 if (!TOKEN_KEY) {
-    throw new Error("TOKEN_KEY is not defined in environment variables");
+    throw new Error("TOKEN_KEY is not defined in environment variables"); // ถ้าไม่มีค่านี้ จะ throw error ทันที เพราะ JWT ตรวจสอบไม่ได้
 }
 
 const verifyToken = (req, res, next) => {
@@ -32,17 +34,17 @@ const verifyToken = (req, res, next) => {
     const token = authHeader && authHeader.split(" ")[1];
 
     if (!token) {
-        return res.status(403).send("A token is required for authentication");
+        return res.status(403).send("A token is required for authentication"); // ถ้าไม่มี token เลย จะส่งกลับว่า “ต้องมี token เพื่อเข้าสู่ระบบ”
     }
 
-    try {
-        const decoded = jwt.verify(token, TOKEN_KEY);
+    try { // ตรวจสอบความถูกต้องของ Token
+        const decoded = jwt.verify(token, TOKEN_KEY); // ใช้ jwt.verify() เพื่อตรวจสอบว่ารหัสลับถูกต้องไหม และ Token หมดอายุหรือยัง
         req.user = decoded; // Attach user info
     } catch (err) {
         return res.status(401).send("Invalid Token");
     }
 
-    return next();
+    return next(); // ถ้าทุกอย่างถูกต้อง ให้ไปยัง route ต่อไป
 };
 
 module.exports = verifyToken;
